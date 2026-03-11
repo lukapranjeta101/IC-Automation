@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Phoenix Coffee Co.</title>
+    <style>
+      :root {
+        --phoenix-blue: #1fa4c9;
+        --phoenix-blue-dark: #0f7fa0;
+        --phoenix-blue-deep: #0a6784;
+        --soft-blue: #dff5fb;
+        --soft-blue-2: #c5eefa;
+        --white: #ffffff;
+        --text-dark: #172026;
+        --text-soft: #58707b;
+        --shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+        --section-pad: 72px;
+        --card-pad: 24px;
+        --grid-gap: 18px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: var(--phoenix-blue);
+        color: var(--white);
+        line-height: 1.6;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .container {
+        width: min(1200px, 92%);
+        margin: 0 auto;
+      }
+
+      .section-shell {
+        background: #f7fbfd;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: rgba(31, 164, 201, 0.64);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+      }
+
+      .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 0;
+        gap: 18px;
+      }
+
+      .logo {
+        display: inline-flex;
+        align-items: center;
+      }
+
+      .logo-image {
+        width: auto;
+        height: 62px;
+        object-fit: contain;
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 28px;
+        align-items: center;
+      }
+
+      .nav-links a {
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        transition: opacity 0.25s ease;
+      }
+
+      .nav-links a:hover,
+      .nav-links a.active {
+        opacity: 0.75;
+      }
+
+      .order-btn,
+      .primary-btn,
+      .secondary-btn,
+      .form-btn,
+      .mini-btn {
+        display: inline-block;
+        padding: 12px 22px;
+        border: 1px solid var(--white);
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        font-size: 0.82rem;
+        font-weight: 700;
+        transition: all 0.25s ease;
+        cursor: pointer;
+      }
+
+      .order-btn,
+      .secondary-btn {
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--white);
+      }
+
+      .order-btn:hover,
+      .secondary-btn:hover {
+        background: var(--white);
+        color: var(--phoenix-blue);
+      }
+
+      .primary-btn,
+      .form-btn,
+      .mini-btn {
+        background: var(--white);
+        color: var(--phoenix-blue);
+        border-color: var(--white);
+      }
+
+      .primary-btn:hover,
+      .form-btn:hover,
+      .mini-btn:hover {
+        opacity: 0.9;
+      }
+
+      .hero {
+        position: relative;
+        min-height: 44vh;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(rgba(31, 164, 201, 0.9), rgba(31, 164, 201, 0.78)),
+          url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1600&q=80");
+        background-position: center, center 58%;
+        background-size: 100% 100%, 100%;
+        background-repeat: no-repeat, no-repeat;
+      }
+
+      .hero-line-top,
+      .hero-line-bottom {
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.4);
+        z-index: 1;
+      }
+
+      .hero-line-top {
+        top: 0;
+      }
+
+      .hero-line-bottom {
+        bottom: 72px;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        width: 100%;
+        padding: 14px 0 16px;
+      }
+
+      .eyebrow {
+        margin-bottom: 14px;
+        font-size: 0.95rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.55em;
+      }
+
+      .hero-logo {
+        width: min(500px, 64vw);
+        height: auto;
+        margin: 0 auto;
+        object-fit: contain;
+      }
+
+      .hero-subtitle {
+        margin-top: 14px;
+        font-size: clamp(1.8rem, 4vw, 3rem);
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.28em;
+      }
+
+      .hero-actions {
+        margin-top: 24px;
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      section {
+        padding: var(--section-pad) 0;
+      }
+
+      .split-welcome {
+        color: var(--text-dark);
+        position: relative;
+      }
+
+      .welcome-badge {
+        width: fit-content;
+        margin: -88px auto 0;
+        background: var(--phoenix-blue);
+        color: var(--white);
+        padding: 20px 40px;
+        font-size: clamp(2rem, 5vw, 4rem);
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        box-shadow: var(--shadow);
+        position: relative;
+        z-index: 4;
+      }
+
+      .welcome-grid {
+        margin-top: -14px;
+        display: grid;
+        grid-template-columns: 1fr 1.1fr 1fr;
+        gap: var(--grid-gap);
+        align-items: center;
+      }
+
+      .welcome-image {
+        min-height: 420px;
+        box-shadow: var(--shadow);
+      }
+
+      .welcome-copy {
+        background: var(--soft-blue);
+        padding: 32px 26px;
+        box-shadow: var(--shadow);
+        text-align: center;
+      }
+
+      .welcome-copy h2,
+      .panel-title,
+      .section-title,
+      .menu-float h3,
+      .event-header h3,
+      .app-copy h3,
+      .footer-brand {
+        text-transform: uppercase;
+      }
+
+      .welcome-copy h2 {
+        font-size: clamp(1.8rem, 3vw, 2.5rem);
+        line-height: 1.15;
+        letter-spacing: 0.08em;
+      }
+
+      .welcome-copy p {
+        margin-top: 14px;
+        color: #38515d;
+        line-height: 1.75;
+        font-size: 0.98rem;
+      }
+
+      .promo-strip {
+        margin-top: 44px;
+        background: var(--soft-blue);
+        padding: var(--card-pad);
+      }
+
+      .promo-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--grid-gap);
+        align-items: stretch;
+      }
+
+      .promo-card,
+      .latest-card,
+      .food-banner-image,
+      .food-banner-copy,
+      .menu-board,
+      .app-panel,
+      .footer-wrap {
+        box-shadow: var(--shadow);
+      }
+
+      .promo-card {
+        background: var(--white);
+        min-height: 270px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .promo-center {
+        background: var(--white);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+        padding: var(--card-pad);
+      }
+
+      .promo-center h3 {
+        color: var(--text-dark);
+        font-size: clamp(2.2rem, 6vw, 4.8rem);
+        line-height: 0.95;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      .promo-center p,
+      .panel-sub,
+      .section-copy,
+      .food-banner-copy p,
+      .menu-float p,
+      .event-placeholder,
+      .app-copy p,
+      .footer-column p,
+      .footer-column a {
+        color: var(--text-soft);
+      }
+
+      .promo-center p {
+        margin-top: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+      }
+
+      .promo-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(0,0,0,0.5), rgba(0,0,0,0.05));
+        display: flex;
+        align-items: end;
+        justify-content: start;
+        padding: 18px;
+        color: white;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+      }
+
+      .latest-section {
+        background: #d8eef6;
+        color: var(--text-dark);
+      }
+
+      .panel-header {
+        width: fit-content;
+        margin: 0 auto 24px;
+        background: #ecfbff;
+        padding: 16px 34px;
+        text-align: center;
+        box-shadow: var(--shadow);
+      }
+
+      .panel-title {
+        font-size: clamp(2rem, 4vw, 3.2rem);
+        letter-spacing: 0.08em;
+      }
+
+      .panel-sub {
+        font-size: 0.9rem;
+        margin-top: 8px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .latest-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--grid-gap);
+      }
+
+      .latest-card {
+        background: #effcff;
+        border: 1px solid #cdeef8;
+        overflow: hidden;
+      }
+
+      .latest-image {
+        height: 230px;
+      }
+
+      .latest-body {
+        padding: 14px;
+      }
+
+      .latest-body h4 {
+        color: var(--text-dark);
+        font-size: 1.05rem;
+        line-height: 1.3;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .latest-body p {
+        margin-top: 10px;
+        color: var(--text-soft);
+        font-size: 0.94rem;
+        line-height: 1.7;
+      }
+
+      .food-banner {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        align-items: stretch;
+        margin-top: 44px;
+      }
+
+      .food-banner-image {
+        min-height: 320px;
+      }
+
+      .food-banner-copy {
+        background: #e8fbff;
+        color: var(--text-dark);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 34px;
+      }
+
+      .food-banner-copy h3 {
+        font-size: clamp(2.2rem, 5vw, 4.2rem);
+        line-height: 0.95;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .food-banner-copy p {
+        margin-top: 14px;
+        line-height: 1.7;
+      }
+
+      .menu-section {
+        background: var(--phoenix-blue-dark);
+      }
+
+      .menu-wrap {
+        position: relative;
+      }
+
+      .menu-float {
+        width: min(680px, 92%);
+        margin: 0 auto;
+        background: #effcff;
+        color: var(--text-dark);
+        text-align: center;
+        padding: 20px 26px;
+        box-shadow: var(--shadow);
+        position: relative;
+        z-index: 2;
+      }
+
+      .menu-float h3 {
+        font-size: clamp(2rem, 4vw, 3.1rem);
+        letter-spacing: 0.08em;
+      }
+
+      .menu-float p {
+        margin-top: 10px;
+        line-height: 1.7;
+      }
+
+      .menu-note {
+        margin: 18px 0 12px;
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+      }
+
+      .mosaic-board {
+        background: #e8fbff;
+        padding: 10px;
+        box-shadow: var(--shadow);
+      }
+
+      .mosaic-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr 1.1fr 1fr;
+        grid-auto-rows: 140px;
+        gap: 10px;
+      }
+
+      .tile {
+        overflow: hidden;
+      }
+
+      .tile.tall {
+        grid-row: span 2;
+      }
+
+      .tile.wide {
+        grid-column: span 2;
+      }
+
+      .tile.large {
+        grid-row: span 2;
+        grid-column: span 2;
+      }
+
+      .events-section {
+        background: #f7fbfd;
+        color: var(--text-dark);
+      }
+
+      .event-header {
+        width: fit-content;
+        margin: 0 auto 24px;
+        background: #effcff;
+        padding: 16px 34px;
+        text-align: center;
+        box-shadow: var(--shadow);
+      }
+
+      .event-header h3 {
+        font-size: clamp(2rem, 4vw, 3rem);
+        letter-spacing: 0.08em;
+      }
+
+      .event-placeholder {
+        max-width: 760px;
+        min-height: 120px;
+        margin: 0 auto;
+        background: #e8fbff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 24px;
+        box-shadow: var(--shadow);
+        font-size: 1.05rem;
+      }
+
+      .app-section {
+        background: #f7fbfd;
+        color: var(--text-dark);
+        padding-top: 8px;
+      }
+
+      .app-panel {
+        background: var(--soft-blue);
+        display: grid;
+        grid-template-columns: 1fr 0.9fr;
+        align-items: center;
+        overflow: hidden;
+      }
+
+      .app-copy {
+        padding: 36px;
+      }
+
+      .app-eyebrow {
+        color: var(--phoenix-blue-dark);
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        font-size: 0.82rem;
+        font-weight: 700;
+      }
+
+      .app-copy h3 {
+        font-size: clamp(2.6rem, 6vw, 5.5rem);
+        line-height: 0.9;
+        letter-spacing: 0.06em;
+        margin-top: 12px;
+      }
+
+      .app-copy p {
+        margin-top: 14px;
+        line-height: 1.7;
+        max-width: 520px;
+      }
+
+      .store-buttons {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 18px;
+      }
+
+      .store-btn {
+        background: #101418;
+        color: white;
+        padding: 10px 14px;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        font-weight: 700;
+      }
+
+      .phone-frame-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+      }
+
+      .phone-frame {
+        width: 260px;
+        height: 520px;
+        background: #111;
+        border-radius: 38px;
+        padding: 14px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.18);
+      }
+
+      .phone-screen {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        border-radius: 28px;
+        background: white;
+      }
+
+      .contact-section {
+        background: var(--phoenix-blue-dark);
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 0.9fr 1.1fr;
+        gap: 30px;
+        align-items: start;
+      }
+
+      .section-tag {
+        color: var(--white);
+        text-transform: uppercase;
+        letter-spacing: 0.35em;
+        font-size: 0.9rem;
+        font-weight: 700;
+      }
+
+      .section-title {
+        margin-top: 12px;
+        font-size: clamp(2.2rem, 4vw, 3.4rem);
+        line-height: 1.1;
+        letter-spacing: 0.08em;
+      }
+
+      .contact-info p {
+        margin-top: 8px;
+        color: rgba(255, 255, 255, 0.92);
+      }
+
+      .contact-form-wrap {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        border-radius: 24px;
+        padding: 24px;
+        box-shadow: var(--shadow);
+      }
+
+      .contact-form {
+        display: grid;
+        gap: 12px;
+      }
+
+      .contact-form input,
+      .contact-form textarea {
+        width: 100%;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--white);
+        padding: 13px 14px;
+        font-size: 1rem;
+        outline: none;
+      }
+
+      .contact-form input::placeholder,
+      .contact-form textarea::placeholder {
+        color: rgba(255, 255, 255, 0.55);
+      }
+
+      .contact-form textarea {
+        min-height: 130px;
+        resize: vertical;
+      }
+
+      .footer-section {
+        background: var(--phoenix-blue-deep);
+        padding-top: 28px;
+      }
+
+      .footer-curve {
+        width: 100%;
+        height: 60px;
+        border-top-left-radius: 50% 100%;
+        border-top-right-radius: 50% 100%;
+        background: #d9f4fb;
+        margin-bottom: -10px;
+      }
+
+      .footer-wrap {
+        background: #09546b;
+        padding: 36px 30px;
+      }
+
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 1fr 1fr 1fr 1fr;
+        gap: 20px;
+        align-items: start;
+      }
+
+      .footer-brand {
+        font-size: 2.4rem;
+        line-height: 0.95;
+        letter-spacing: 0.08em;
+        font-weight: 800;
+      }
+
+      .footer-brand-sub {
+        margin-top: 10px;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+        letter-spacing: 0.24em;
+      }
+
+      .footer-column h4 {
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-size: 1rem;
+        margin-bottom: 10px;
+      }
+
+      .footer-column p,
+      .footer-column a {
+        display: block;
+        color: rgba(255,255,255,0.78);
+        margin-bottom: 6px;
+        line-height: 1.55;
+      }
+
+      .mobile-toggle {
+        display: none;
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        color: var(--white);
+        padding: 10px 14px;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        cursor: pointer;
+      }
+
+      @media (max-width: 1100px) {
+        .latest-grid,
+        .promo-grid,
+        .footer-grid,
+        .welcome-grid,
+        .food-banner,
+        .app-panel,
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .mosaic-grid {
+          grid-template-columns: repeat(2, 1fr);
+          grid-auto-rows: 160px;
+        }
+
+        .footer-grid {
+          gap: 24px;
+        }
+      }
+
+      @media (max-width: 980px) {
+        .nav-links {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          display: none;
+          flex-direction: column;
+          align-items: flex-start;
+          padding: 18px 4%;
+          background: rgba(31, 164, 201, 0.68);
+          border-top: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .nav-links.open {
+          display: flex;
+        }
+
+        .mobile-toggle {
+          display: inline-block;
+        }
+
+        .navbar {
+          position: relative;
+          flex-wrap: wrap;
+        }
+
+        .desktop-order {
+          display: none;
+        }
+
+        .latest-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 700px) {
+        .hero {
+          min-height: 34vh;
+        }
+
+        .hero-content {
+          padding: 10px 0 12px;
+        }
+
+        section {
+          padding: 56px 0;
+        }
+
+        .hero-line-top {
+          top: 0;
+        }
+
+        .hero-line-bottom {
+          bottom: 48px;
+        }
+
+        .logo-image {
+          height: 50px;
+        }
+
+        .eyebrow {
+          letter-spacing: 0.32em;
+          font-size: 0.82rem;
+        }
+
+        .hero-subtitle {
+          letter-spacing: 0.18em;
+        }
+
+        .welcome-badge {
+          margin-top: -72px;
+          padding: 16px 24px;
+        }
+
+        .latest-grid,
+        .promo-grid,
+        .mosaic-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .mosaic-grid {
+          grid-auto-rows: 220px;
+        }
+
+        .tile.large,
+        .tile.wide,
+        .tile.tall {
+          grid-column: span 1;
+          grid-row: span 1;
+        }
+
+        .app-copy,
+        .food-banner-copy,
+        .footer-wrap,
+        .contact-form-wrap,
+        .welcome-copy {
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container navbar">
+        <a href="#home" class="logo" aria-label="Phoenix Coffee Co. home">
+          <img src="logo.png" alt="Phoenix Coffee Co." class="logo-image" />
+        </a>
+
+        <button class="mobile-toggle" id="mobileToggle">Menu</button>
+
+        <nav>
+          <ul class="nav-links" id="navLinks">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#welcome">Welcome</a></li>
+            <li><a href="#latest">Latest</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#events">Events</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+
+        <a href="#contact" class="order-btn desktop-order">Order Now</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" id="home">
+        <div class="hero-line-top"></div>
+        <div class="hero-line-bottom"></div>
+
+        <div class="container hero-content">
+          <p class="eyebrow">Cleveland's Favorite Coffee</p>
+          <img src="logo.png" alt="Phoenix Coffee Co." class="hero-logo" />
+          <p class="hero-subtitle">Coffee Co.</p>
+
+          <div class="hero-actions">
+            <a href="#menu" class="secondary-btn">View Menu</a>
+            <a href="#contact" class="primary-btn">Visit Us</a>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-shell">
+        <section class="split-welcome" id="welcome">
+          <div class="container">
+            <div class="welcome-badge">Welcome</div>
+
+            <div class="welcome-grid">
+              <div class="welcome-image">
+                <img src="unnamed.webp" alt="Phoenix Coffee interior" />
+              </div>
+
+              <div class="welcome-copy">
+                <h2>Work meets coffee. Community meets elevation.</h2>
+                <p>
+                  Phoenix Coffee Co. blends premium coffee, a calm work-friendly atmosphere, and a neighborhood feel.
+                  This section mirrors the original structure with a centered welcome block framed by photography on both sides.
+                </p>
+                <p>
+                  Use this area for the brand story, sourcing philosophy, or what makes Phoenix different from a typical coffee shop.
+                </p>
+              </div>
+
+              <div class="welcome-image">
+                <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=900&q=80" alt="Coffee bar seating" />
+              </div>
+            </div>
+
+            <div class="promo-strip">
+              <div class="promo-grid">
+                <div class="promo-card">
+                  <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=900&q=80" alt="Healthy food bowl" />
+                  <div class="promo-overlay">Let food be thy medicine</div>
+                </div>
+
+                <div class="promo-center">
+                  <h3>Say yes to better coffee</h3>
+                  <p>Fresh beans • real ingredients</p>
+                  <div style="margin-top:18px;"><a href="#contact" class="mini-btn">Order Now</a></div>
+                </div>
+
+                <div class="promo-card">
+                  <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=900&q=80" alt="Coffee tasting cups" />
+                  <div class="promo-overlay">Let coffee be thy medicine</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="latest-section" id="latest">
+          <div class="container">
+            <div class="panel-header">
+              <h2 class="panel-title">The Latest</h2>
+              <p class="panel-sub">News, drinks, food, and updates</p>
+            </div>
+
+            <div class="latest-grid">
+              <article class="latest-card">
+                <div class="latest-image"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=80" alt="Coffee machine" /></div>
+                <div class="latest-body">
+                  <h4>Freshly roasted coffee in Cleveland</h4>
+                  <p>Highlight a featured roast, new location update, or behind-the-scenes post from the café.</p>
+                </div>
+              </article>
+
+              <article class="latest-card">
+                <div class="latest-image"><img src="unnamed.webp" alt="Coffee drinks" /></div>
+                <div class="latest-body">
+                  <h4>Zero-toxin café vibes</h4>
+                  <p>Use this card for a seasonal latte, matcha special, or content about ingredients and sourcing.</p>
+                </div>
+              </article>
+
+              <article class="latest-card">
+                <div class="latest-image"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=80" alt="Buddha bowl" /></div>
+                <div class="latest-body">
+                  <h4>Fuel up with fresh bowls</h4>
+                  <p>Feature a healthy bowl, sandwich, or bakery item with a short description and release date.</p>
+                </div>
+              </article>
+
+              <article class="latest-card">
+                <div class="latest-image"><img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=900&q=80" alt="Pink smoothie" /></div>
+                <div class="latest-body">
+                  <h4>Strawberry and smoothie specials</h4>
+                  <p>Add promotional updates for drinks, rewards offers, or limited-time flavors to drive visits.</p>
+                </div>
+              </article>
+            </div>
+
+            <div class="food-banner">
+              <div class="food-banner-image">
+            <img src="shop.webp" alt="Phoenix hallway interior" />
+              </div>
+              <div class="food-banner-copy">
+                <h3>Let food be thy medicine</h3>
+                <p>
+                  A strong mid-page callout section for food, catering, health-forward menu items, or a direct order-now push.
+                </p>
+                <div style="margin-top:24px;"><a href="#contact" class="mini-btn">Order Now</a></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="menu-section" id="menu">
+          <div class="container menu-wrap">
+            <div class="menu-float">
+              <h3>Productivity-stimulating menu</h3>
+              <p>
+                Build this section around espresso, drip coffee, tea, breakfast, bowls, and café favorites. The floating intro card matches the feel of the original page while using Phoenix branding.
+              </p>
+              <div style="margin-top:18px;"><a href="#contact" class="mini-btn">View Menu</a></div>
+            </div>
+
+            <p class="menu-note">See something tasty? Tap and order.</p>
+
+            <div class="mosaic-board">
+              <div class="mosaic-grid">
+                <div class="tile"><img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=900&q=80" alt="Espresso drink" /></div>
+                <div class="tile large"><img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=1200&q=80" alt="Matcha and coffee" /></div>
+                <div class="tile"><img src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=900&q=80" alt="Burger or sandwich" /></div>
+                <div class="tile tall"><img src="https://images.unsplash.com/photo-1488477304112-4944851de03d?auto=format&fit=crop&w=900&q=80" alt="Toast with tomatoes" /></div>
+                <div class="tile tall"><img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=900&q=80" alt="Avocado toast" /></div>
+                <div class="tile"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=80" alt="Food bowl" /></div>
+                <div class="tile"><img src="https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?auto=format&fit=crop&w=900&q=80" alt="Smoothies" /></div>
+                <div class="tile"><img src="https://images.unsplash.com/photo-1541783245831-57d6fb0926d3?auto=format&fit=crop&w=900&q=80" alt="Fruit bowl" /></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="events-section" id="events">
+          <div class="container">
+            <div class="event-header">
+              <h3>Upcoming Events</h3>
+              <p class="panel-sub">Workshops, pop-ups, and community nights</p>
+            </div>
+
+            <div class="event-placeholder">
+              Add event cards, dates, artist nights, tastings, or community meetups here.
+            </div>
+          </div>
+        </section>
+
+        <section class="app-section" id="app">
+          <div class="container">
+            <div class="app-panel">
+              <div class="app-copy">
+                <p class="app-eyebrow">Join. Earn. Enjoy.</p>
+                <h3>Unlock the power of clean eating.</h3>
+                <p>
+                  Promote app ordering, loyalty rewards, location discovery, or subscription perks with a large hero-style app banner.
+                </p>
+
+                <div class="store-buttons">
+                  <span class="store-btn">Download on the App Store</span>
+                  <span class="store-btn">Get it on Google Play</span>
+                </div>
+              </div>
+
+              <div class="phone-frame-wrap">
+                <div class="phone-frame">
+                  <div class="phone-screen">
+                    <img src="https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?auto=format&fit=crop&w=900&q=80" alt="Phoenix app preview" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="contact-section" id="contact">
+          <div class="container contact-grid">
+            <div class="contact-info">
+              <p class="section-tag">Contact</p>
+              <h2 class="section-title">Visit Phoenix Coffee</h2>
+              <p>Open daily serving handcrafted coffee and fresh food.</p>
+              <p>Cleveland, Ohio</p>
+              <p>info@phoenixcoffee.com</p>
+              <p>(216) 000-0000</p>
+            </div>
+
+            <div class="contact-form-wrap">
+              <form class="contact-form" id="contactForm">
+                <input type="text" name="name" placeholder="Name" required />
+                <input type="email" name="email" placeholder="Email" required />
+                <input type="tel" name="phone" placeholder="Phone" />
+                <textarea name="message" placeholder="Message" required></textarea>
+                <button type="submit" class="form-btn">Send Message</button>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <section class="footer-section">
+          <div class="footer-curve"></div>
+          <div class="container footer-wrap">
+            <div class="footer-grid">
+              <div>
+                <div class="footer-brand">Phoenix<br />Coffee</div>
+                <div class="footer-brand-sub">Coffee Co.</div>
+              </div>
+
+              <div class="footer-column">
+                <h4>Location</h4>
+                <p>2125 Superior Ave</p>
+                <p>Cleveland, OH 44114</p>
+                <p>216.294.0100</p>
+              </div>
+
+              <div class="footer-column">
+                <h4>Order</h4>
+                <a href="#contact">Order Now</a>
+                <a href="#contact">Buy Gift Card</a>
+              </div>
+
+              <div class="footer-column">
+                <h4>Press & Partners</h4>
+                <a href="#contact">Press & Media Inquiries</a>
+                <a href="#contact">Send Here</a>
+                <a href="#contact">Brand Partnerships</a>
+              </div>
+
+              <div class="footer-column">
+                <h4>Careers</h4>
+                <a href="#contact">Join Our Team</a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script>
+      const mobileToggle = document.getElementById('mobileToggle');
+      const navLinks = document.getElementById('navLinks');
+      const navAnchors = document.querySelectorAll('.nav-links a');
+      const contactForm = document.getElementById('contactForm');
+
+      mobileToggle.addEventListener('click', function () {
+        navLinks.classList.toggle('open');
+      });
+
+      navAnchors.forEach(function (link) {
+        link.addEventListener('click', function () {
+          navAnchors.forEach(function (item) {
+            item.classList.remove('active');
+          });
+          link.classList.add('active');
+          navLinks.classList.remove('open');
+        });
+      });
+
+      contactForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        alert('Thanks! Your message has been sent.');
+        contactForm.reset();
+      });
+    </script>
+  </body>
+</html>
