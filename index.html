@@ -1103,12 +1103,16 @@
         }
 
         .hero-media {
-          justify-self: start;
+          justify-self: center;
           width: min(460px, 100%);
         }
 
         .feature.reverse .feature-media {
           order: -1;
+        }
+
+        .feature-media {
+          margin-inline: auto;
         }
 
         .cta-band-inner,
@@ -1154,8 +1158,22 @@
           display: none;
         }
 
+        .carousel-viewport {
+          overflow-x: auto;
+          scroll-snap-type: x mandatory;
+          -webkit-overflow-scrolling: touch;
+          padding-bottom: 6px;
+        }
+
+        .carousel-track {
+          transform: none !important;
+          transition: none !important;
+          padding-inline: 2px;
+        }
+
         .carousel-item {
           flex-basis: 100%;
+          scroll-snap-align: center;
         }
       }
 
@@ -1592,6 +1610,7 @@
       if (carouselTrack && carouselViewport && carouselPrev && carouselNext) {
         let carouselIndex = 0;
         let carouselTimer;
+        const isMobileCarousel = () => window.matchMedia("(max-width: 620px)").matches;
 
         const getVisibleCount = () => {
           if (window.matchMedia("(max-width: 620px)").matches) return 1;
@@ -1605,6 +1624,11 @@
         };
 
         const renderCarousel = (animate = true) => {
+          if (isMobileCarousel()) {
+            carouselTrack.style.transition = "none";
+            carouselTrack.style.transform = "none";
+            return;
+          }
           const firstItem = carouselTrack.querySelector(".carousel-item");
           if (!firstItem) return;
           const gap = parseFloat(getComputedStyle(carouselTrack).gap || "0");
@@ -1627,17 +1651,19 @@
 
         const startCarousel = () => {
           const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-          if (reduceMotion) return;
+          if (reduceMotion || isMobileCarousel()) return;
           clearInterval(carouselTimer);
           carouselTimer = setInterval(nextSlide, 3800);
         };
 
         carouselNext.addEventListener("click", () => {
+          if (isMobileCarousel()) return;
           nextSlide();
           startCarousel();
         });
 
         carouselPrev.addEventListener("click", () => {
+          if (isMobileCarousel()) return;
           prevSlide();
           startCarousel();
         });
@@ -1647,7 +1673,9 @@
 
         window.addEventListener("resize", () => {
           carouselIndex = Math.min(carouselIndex, getMaxIndex());
+          clearInterval(carouselTimer);
           renderCarousel(false);
+          startCarousel();
         });
 
         renderCarousel(false);
