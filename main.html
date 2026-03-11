@@ -1,0 +1,1679 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="IC Automation delivers practical robotics solutions for warehouses, manufacturing, and enterprise operations." />
+    <title>IC Automation | Industrial Robotics Solutions</title>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --surface: #ffffff;
+        --surface-soft: #faf6e8;
+        --text: #151515;
+        --text-soft: #575249;
+        --line: #e7dec2;
+        --blue: #f5c112;
+        --blue-deep: #4a3900;
+        --cyan: #f2b705;
+        --contact-blue: #0a1452;
+        --radius-lg: 20px;
+        --radius-md: 14px;
+        --shadow-md: 0 12px 28px rgba(22, 17, 5, 0.16);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        min-height: 100vh;
+        font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
+        color: var(--text);
+        background: var(--bg);
+      }
+
+      a:focus-visible,
+      button:focus-visible,
+      input:focus-visible {
+        outline: 3px solid #f5c112;
+        outline-offset: 2px;
+        border-radius: 6px;
+      }
+
+      .skip-link {
+        position: absolute;
+        top: -100px;
+        left: 12px;
+        z-index: 100;
+        background: #171717;
+        color: #fff;
+        padding: 10px 14px;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 700;
+        transition: top 0.2s ease;
+      }
+
+      .skip-link:focus {
+        top: 12px;
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      .site {
+        width: 100%;
+        background: var(--surface);
+      }
+
+      .top-contact-bar {
+        width: 100%;
+        min-height: 30px;
+        background: var(--contact-blue);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 4px clamp(12px, 2vw, 26px);
+      }
+
+      .top-contact-inner {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        font-size: 13px;
+        font-weight: 600;
+        justify-content: flex-start;
+      }
+
+      .top-contact-item,
+      .top-social {
+        color: #fff;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        line-height: 1;
+      }
+
+      .top-contact-item:hover,
+      .top-social:hover {
+        opacity: 0.9;
+      }
+
+      .top-icon {
+        font-size: 12px;
+      }
+
+      .top-socials {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        margin-left: 4px;
+      }
+
+      .top-social {
+        font-weight: 700;
+        width: 14px;
+        height: 14px;
+        justify-content: center;
+      }
+
+      .top-social svg {
+        width: 14px;
+        height: 14px;
+        display: block;
+        fill: currentColor;
+      }
+
+      .top-nav {
+        min-height: 76px;
+        padding: 0 clamp(16px, 3vw, 40px);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        border-bottom: 1px solid var(--line);
+        background: rgba(255, 252, 242, 0.98);
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        backdrop-filter: blur(6px);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        line-height: 0;
+      }
+
+      .brand-mark {
+        width: 52px;
+        height: 52px;
+        border-radius: 0;
+        object-fit: cover;
+        object-position: center;
+        border: 0;
+        display: block;
+      }
+
+      .nav-toggle {
+        display: none;
+        border: 1px solid #e2d5ad;
+        background: #fff8de;
+        padding: 8px 10px;
+        border-radius: 10px;
+        font-weight: 700;
+        color: #322809;
+      }
+
+      .nav-links,
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: clamp(12px, 1.8vw, 24px);
+      }
+
+      .nav-links a {
+        color: #2a2a2a;
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        transition: color 0.2s ease;
+      }
+
+      .nav-links a:hover {
+        color: var(--blue);
+      }
+
+      .nav-links a[aria-current="page"] {
+        color: var(--blue);
+      }
+
+      .nav-right a {
+        color: #4d4738;
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .site-search {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .search-input {
+        width: clamp(120px, 11vw, 180px);
+        min-height: 34px;
+        padding: 7px 10px;
+        border-radius: 999px;
+        border: 1px solid #d8cba5;
+        background: #fffdf6;
+        color: #1a1a1a;
+        font-size: 12px;
+      }
+
+      .search-input::placeholder {
+        color: #827552;
+      }
+
+      .search-btn {
+        min-height: 34px;
+        border-radius: 999px;
+        border: 1px solid #dfd0a5;
+        background: #fff8e0;
+        color: #31280f;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 0 11px;
+        cursor: pointer;
+      }
+
+      .search-hit {
+        box-shadow: 0 0 0 4px rgba(245, 193, 18, 0.45);
+        border-radius: 6px;
+        transition: box-shadow 0.25s ease;
+      }
+
+      .search-input.search-miss {
+        border-color: #bf3131;
+      }
+
+      .cta {
+        border: 0;
+        border-radius: 999px;
+        padding: 10px 16px;
+        background: linear-gradient(135deg, #f5c112, #e2ab00);
+        color: #191919;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .cta:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 10px 22px rgba(161, 121, 0, 0.34);
+      }
+
+      .hero {
+        position: relative;
+        overflow: hidden;
+        background: radial-gradient(circle at 72% 35%, #7f6200 0%, #33280d 46%, #111111 100%);
+      }
+
+      .hero-mech {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .mech-gear {
+        --size: 160px;
+        --x: 50%;
+        --y: 50%;
+        --dur: 12s;
+        position: absolute;
+        left: var(--x);
+        top: var(--y);
+        width: var(--size);
+        height: var(--size);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        border: 2px dashed rgba(245, 193, 18, 0.35);
+        box-shadow:
+          inset 0 0 0 14px rgba(245, 193, 18, 0.09),
+          inset 0 0 0 34px rgba(255, 255, 255, 0.04);
+        animation: gear-pulse var(--dur) cubic-bezier(0.44, 0.07, 0.2, 1) infinite both;
+        opacity: 0.55;
+        filter: saturate(1.05);
+      }
+
+      .mech-gear::after {
+        content: "";
+        position: absolute;
+        inset: 26%;
+        border-radius: 50%;
+        border: 2px solid rgba(245, 193, 18, 0.55);
+        animation: gear-core-pulse var(--dur) cubic-bezier(0.44, 0.07, 0.2, 1) infinite both;
+        animation-delay: inherit;
+      }
+
+      .mech-gear.g1 { --size: 230px; --x: 15%; --y: 32%; animation-delay: 0s; }
+      .mech-gear.g2 { --size: 150px; --x: 33%; --y: 74%; animation-delay: 3s; }
+      .mech-gear.g3 { --size: 280px; --x: 72%; --y: 30%; animation-delay: 6s; }
+      .mech-gear.g4 { --size: 120px; --x: 86%; --y: 76%; animation-delay: 9s; }
+
+      .mech-track {
+        position: absolute;
+        left: -20%;
+        width: 140%;
+        height: 1px;
+        border-top: 1px solid rgba(245, 193, 18, 0.22);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        animation: track-shift 9s linear infinite;
+      }
+
+      .mech-track.t1 { top: 28%; animation-duration: 8s; }
+      .mech-track.t2 { top: 51%; animation-duration: 11s; }
+      .mech-track.t3 { top: 72%; animation-duration: 10s; }
+
+      .mech-node {
+        position: absolute;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: #f5c112;
+        box-shadow: 0 0 12px rgba(245, 193, 18, 0.5);
+        animation: node-pulse 2.4s ease-in-out infinite;
+      }
+
+      .mech-node.n1 { left: 24%; top: 27%; animation-delay: 0.2s; }
+      .mech-node.n2 { left: 55%; top: 50%; animation-delay: 1s; }
+      .mech-node.n3 { left: 78%; top: 71%; animation-delay: 1.6s; }
+
+      .hero::after {
+        content: "";
+        position: absolute;
+        left: -120px;
+        bottom: -220px;
+        width: 360px;
+        height: 360px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.09);
+        z-index: 0;
+      }
+
+      .hero-inner {
+        position: relative;
+        z-index: 2;
+        max-width: 1280px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        align-items: center;
+        gap: 20px;
+        padding: clamp(40px, 7vw, 86px) clamp(16px, 4vw, 64px);
+      }
+
+      .hero-copy {
+        max-width: 640px;
+        color: #fff;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(38px, 6.2vw, 78px);
+        line-height: 0.98;
+        letter-spacing: -0.03em;
+      }
+
+      .hero-copy p {
+        margin: 22px 0 26px;
+        font-size: clamp(14px, 1.5vw, 19px);
+        line-height: 1.55;
+        max-width: 480px;
+        color: #f4e8be;
+      }
+
+      .hero-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        color: #fff;
+        border: 1px solid rgba(245, 193, 18, 0.85);
+        border-radius: 999px;
+        padding: 10px 18px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+      }
+
+      .hero-media {
+        justify-self: end;
+        width: min(420px, 100%);
+        aspect-ratio: 1 / 1;
+        border-radius: 16px;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.24);
+        box-shadow: var(--shadow-md);
+        position: relative;
+      }
+
+      .hero-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      .hero-media::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background:
+          radial-gradient(circle at center, transparent 55%, rgba(18, 18, 18, 0.18) 82%, rgba(18, 18, 18, 0.34) 100%),
+          linear-gradient(135deg, rgba(18, 18, 18, 0.2), transparent 36%, transparent 64%, rgba(18, 18, 18, 0.2));
+      }
+
+      .webinar {
+        min-height: 42px;
+        background: linear-gradient(90deg, #111111 0%, #2f2507 100%);
+        color: #f4e8be;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        padding: 8px 12px;
+        font-size: 12px;
+        font-weight: 600;
+        text-align: center;
+      }
+
+      .webinar .tag {
+        border: 1px solid rgba(245, 193, 18, 0.7);
+        border-radius: 999px;
+        font-size: 10px;
+        letter-spacing: 0.02em;
+        padding: 4px 10px;
+        white-space: nowrap;
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .trust {
+        padding: clamp(24px, 4vw, 42px) clamp(16px, 4vw, 52px);
+        text-align: center;
+        background: #fff;
+      }
+
+      .trust h2 {
+        margin: 0 0 18px;
+        font-size: 13px;
+        font-weight: 700;
+        color: #282318;
+      }
+
+      .logos {
+        position: relative;
+        overflow: hidden;
+        height: 76px;
+        width: min(100%, 980px);
+        margin: 0 auto;
+      }
+
+      .logos-track {
+        width: max-content;
+        display: flex;
+        align-items: center;
+        height: 100%;
+        animation: logo-loop-right 12s linear infinite;
+        will-change: transform;
+      }
+
+      .logos-group {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding-inline: 8px;
+        flex: 0 0 auto;
+      }
+
+      .logos-group[aria-hidden="true"] {
+        pointer-events: none;
+      }
+
+      .logo-card {
+        width: clamp(122px, 12vw, 156px);
+        height: 68px;
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 6px 10px;
+      }
+
+      .logo-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+      }
+
+      .wordmark {
+        font-size: clamp(26px, 2.8vw, 34px);
+        line-height: 1;
+        font-weight: 900;
+        letter-spacing: 0.06em;
+      }
+
+      .wordmark.dhl {
+        color: #d91f32;
+        font-style: italic;
+      }
+
+      .content {
+        background: #fff;
+        display: grid;
+        gap: clamp(40px, 5vw, 72px);
+        padding: clamp(34px, 5vw, 62px) 0 clamp(42px, 6vw, 78px);
+      }
+
+      .feature {
+        max-width: 1280px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: clamp(22px, 4vw, 54px);
+        padding: clamp(26px, 5vw, 56px) clamp(16px, 5vw, 70px);
+        border-radius: 18px;
+        overflow: hidden;
+      }
+
+      .feature h3 {
+        margin: 0;
+        font-size: clamp(34px, 5.4vw, 72px);
+        line-height: 0.98;
+        letter-spacing: -0.03em;
+      }
+
+      .feature p {
+        margin: 22px 0 24px;
+        max-width: 500px;
+        font-size: clamp(14px, 1.3vw, 18px);
+        line-height: 1.6;
+        color: var(--text-soft);
+      }
+
+      .feature a {
+        display: inline-block;
+        text-decoration: none;
+        color: #6a5100;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+      }
+
+      .feature-media {
+        width: 100%;
+        min-height: clamp(260px, 30vw, 420px);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        box-shadow: var(--shadow-md);
+        background: #0c152a;
+      }
+
+      .feature-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .spot {
+        background: #fff;
+        border: 1px solid #efe7d2;
+      }
+
+      .stretch {
+        color: #fff;
+        background: #121212;
+      }
+
+      .stretch .feature-media {
+        background: transparent;
+      }
+
+      .stretch p {
+        color: #f1e6bf;
+      }
+
+      .stretch a {
+        color: #ffeaa2;
+      }
+
+      .embodied {
+        background: var(--surface-soft);
+      }
+
+      .embodied .feature-media {
+        min-height: clamp(190px, 23vw, 300px);
+      }
+
+      .image-carousel {
+        max-width: 1280px;
+        margin: 0 auto;
+        background: #fff;
+        border: 1px solid #efe7d2;
+        border-radius: 18px;
+        padding: clamp(16px, 2.4vw, 26px);
+      }
+
+      .carousel-shell {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .carousel-btn {
+        width: 42px;
+        height: 42px;
+        border: 1px solid #dfd2ad;
+        border-radius: 999px;
+        background: #fff8e0;
+        color: #2a220f;
+        font-size: 20px;
+        line-height: 1;
+        cursor: pointer;
+        display: grid;
+        place-items: center;
+      }
+
+      .carousel-btn:hover {
+        background: #f5c112;
+      }
+
+      .carousel-viewport {
+        overflow: hidden;
+      }
+
+      .carousel-track {
+        display: flex;
+        gap: 14px;
+        will-change: transform;
+      }
+
+      .carousel-item {
+        flex: 0 0 calc((100% - (14px * 2)) / 3);
+        margin: 0;
+        aspect-ratio: 16 / 10;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 8px 20px rgba(18, 15, 8, 0.12);
+      }
+
+      .carousel-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .cta-band {
+        background: #fff;
+        color: #171717;
+        border-top: 1px solid #efe7d2;
+      }
+
+      .cta-band-inner {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: clamp(30px, 6vw, 58px) clamp(16px, 4vw, 64px);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+      }
+
+      .cta-band h2 {
+        margin: 0;
+        font-size: clamp(26px, 4vw, 48px);
+        line-height: 1;
+        letter-spacing: -0.02em;
+      }
+
+      .cta-band p {
+        margin: 10px 0 0;
+        color: #5f5744;
+        max-width: 620px;
+      }
+
+      .cta-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .contact-form {
+        margin-top: 18px;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+        width: min(720px, 100%);
+      }
+
+      .contact-form input,
+      .contact-form select {
+        min-height: 42px;
+        border-radius: 10px;
+        border: 1px solid #d7c99f;
+        background: #fffdf5;
+        color: #1a1a1a;
+        padding: 10px 12px;
+      }
+
+      .contact-form input::placeholder {
+        color: #8a7d58;
+      }
+
+      .contact-form select option {
+        color: #1a1a1a;
+      }
+
+      .contact-form button {
+        min-height: 42px;
+        border: 0;
+        border-radius: 10px;
+        background: #f5c112;
+        color: #1c1a12;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+
+      .status-msg {
+        margin-top: 10px;
+        font-size: 13px;
+        color: #6b5620;
+        min-height: 20px;
+      }
+
+      .btn-light,
+      .btn-dark {
+        text-decoration: none;
+        border-radius: 999px;
+        padding: 11px 16px;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        font-weight: 700;
+      }
+
+      .btn-light {
+        background: #f5c112;
+        color: #1b1912;
+      }
+
+      .btn-dark {
+        background: #fff8e0;
+        color: #4f3d0c;
+        border: 1px solid #dfc977;
+      }
+
+      .site-footer {
+        background: #121212;
+        color: #ddd0a7;
+      }
+
+      .footer-inner {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: clamp(28px, 5vw, 54px) clamp(16px, 4vw, 64px);
+      }
+
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr 1fr 1.2fr;
+        gap: clamp(14px, 2.2vw, 32px);
+      }
+
+      .footer-title {
+        margin: 0 0 12px;
+        color: #f5c112;
+        font-size: 14px;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+      }
+
+      .footer-brand {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 22px;
+        font-weight: 800;
+        color: #f5c112;
+        margin-bottom: 8px;
+        line-height: 1;
+      }
+
+      .footer-brand-logo {
+        width: 36px;
+        height: 36px;
+        border-radius: 0;
+        object-fit: cover;
+        border: 0;
+        display: block;
+        flex-shrink: 0;
+      }
+
+      .footer-copy {
+        margin: 0;
+        color: #c6bc9c;
+        max-width: 360px;
+        line-height: 1.6;
+      }
+
+      .footer-col a {
+        display: block;
+        color: #ddd0a7;
+        text-decoration: none;
+        margin-bottom: 10px;
+        font-size: 14px;
+      }
+
+      .footer-col a:hover {
+        color: #f5c112;
+      }
+
+      .signup {
+        display: flex;
+        gap: 8px;
+      }
+
+      .signup input {
+        flex: 1;
+        min-height: 40px;
+        padding: 9px 12px;
+        border-radius: 10px;
+        border: 1px solid #59450f;
+        background: #1a1a1a;
+        color: #fff;
+      }
+
+      .signup button {
+        min-height: 40px;
+        border: 0;
+        border-radius: 10px;
+        padding: 0 14px;
+        background: linear-gradient(135deg, #f5c112, #e2ab00);
+        color: #1b1b1b;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .signup-status {
+        margin-top: 10px;
+        font-size: 12px;
+        color: #f5d989;
+        min-height: 18px;
+      }
+
+      .footer-bottom {
+        margin-top: 24px;
+        padding-top: 16px;
+        border-top: 1px solid #322b17;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 14px;
+        font-size: 12px;
+        color: #b5aa86;
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .footer-links a {
+        color: #b5aa86;
+        text-decoration: none;
+      }
+
+      .float-links {
+        position: fixed;
+        right: 18px;
+        bottom: 24px;
+        z-index: 12;
+      }
+
+      .float-links a {
+        width: 38px;
+        height: 38px;
+        border-radius: 999px;
+        background: #f5c112;
+        color: #181818;
+        text-decoration: none;
+        font-weight: 700;
+        display: grid;
+        place-items: center;
+        box-shadow: 0 10px 20px rgba(130, 98, 0, 0.34);
+      }
+
+      .reveal {
+        animation: rise 600ms ease both;
+      }
+
+      .delay-1 {
+        animation-delay: 100ms;
+      }
+
+      .delay-2 {
+        animation-delay: 180ms;
+      }
+
+      @keyframes logo-loop-right {
+        from {
+          transform: translateX(-50%);
+        }
+
+        to {
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes gear-pulse {
+        0%,
+        22%,
+        100% {
+          transform: translate(-50%, -50%) scale(1);
+          opacity: 0.4;
+          border-color: rgba(245, 193, 18, 0.28);
+          box-shadow:
+            inset 0 0 0 14px rgba(245, 193, 18, 0.07),
+            inset 0 0 0 34px rgba(255, 255, 255, 0.03);
+        }
+
+        9% {
+          transform: translate(-50%, -50%) scale(1.06);
+          opacity: 0.82;
+          border-color: rgba(255, 223, 122, 0.75);
+          box-shadow:
+            0 0 18px rgba(245, 193, 18, 0.2),
+            inset 0 0 0 14px rgba(245, 193, 18, 0.16),
+            inset 0 0 0 34px rgba(255, 255, 255, 0.08);
+        }
+
+        13% {
+          transform: translate(-50%, -50%) scale(1.09);
+          opacity: 1;
+          border-color: rgba(255, 230, 140, 0.9);
+          box-shadow:
+            0 0 36px rgba(245, 193, 18, 0.42),
+            inset 0 0 0 14px rgba(245, 193, 18, 0.28),
+            inset 0 0 0 34px rgba(255, 255, 255, 0.14);
+        }
+
+        17% {
+          transform: translate(-50%, -50%) scale(1.03);
+          opacity: 0.68;
+          border-color: rgba(245, 193, 18, 0.5);
+          box-shadow:
+            0 0 15px rgba(245, 193, 18, 0.2),
+            inset 0 0 0 14px rgba(245, 193, 18, 0.11),
+            inset 0 0 0 34px rgba(255, 255, 255, 0.06);
+        }
+      }
+
+      @keyframes gear-core-pulse {
+        0%,
+        22%,
+        100% {
+          border-color: rgba(245, 193, 18, 0.45);
+          opacity: 0.45;
+        }
+
+        9% {
+          border-color: rgba(255, 229, 140, 0.78);
+          opacity: 0.78;
+        }
+
+        13% {
+          border-color: rgba(255, 237, 167, 0.95);
+          opacity: 1;
+        }
+
+        17% {
+          border-color: rgba(245, 193, 18, 0.6);
+          opacity: 0.65;
+        }
+      }
+
+      @keyframes track-shift {
+        from { transform: translateX(-6%); opacity: 0.35; }
+        50% { opacity: 0.65; }
+        to { transform: translateX(6%); opacity: 0.35; }
+      }
+
+      @keyframes node-pulse {
+        0%, 100% { transform: scale(0.85); opacity: 0.5; }
+        50% { transform: scale(1.4); opacity: 1; }
+      }
+
+      @keyframes rise {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 980px) {
+        .top-contact-inner {
+          flex-wrap: wrap;
+          justify-content: center;
+          row-gap: 6px;
+          font-size: 12px;
+        }
+
+        .top-nav {
+          padding-top: 12px;
+          padding-bottom: 12px;
+          flex-wrap: wrap;
+          justify-content: space-between;
+        }
+
+        .nav-toggle {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .nav-links,
+        .nav-right {
+          display: none;
+          width: 100%;
+          flex-wrap: wrap;
+          row-gap: 10px;
+        }
+
+        .site-search {
+          width: 100%;
+        }
+
+        .search-input {
+          flex: 1;
+        }
+
+        .top-nav.is-open .nav-links,
+        .top-nav.is-open .nav-right {
+          display: flex;
+        }
+
+        .top-nav.is-open .nav-links {
+          padding-top: 8px;
+        }
+
+        .hero-inner,
+        .feature {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-media {
+          justify-self: start;
+          width: min(460px, 100%);
+        }
+
+        .feature.reverse .feature-media {
+          order: -1;
+        }
+
+        .cta-band-inner,
+        .footer-grid,
+        .footer-bottom {
+          grid-template-columns: 1fr;
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .contact-form {
+          grid-template-columns: 1fr;
+        }
+
+        .carousel-item {
+          flex-basis: calc((100% - 14px) / 2);
+        }
+      }
+
+      @media (max-width: 620px) {
+        .webinar {
+          flex-direction: column;
+          gap: 8px;
+          text-align: center;
+        }
+
+        .feature h3,
+        .cta-band h2 {
+          font-size: clamp(34px, 10vw, 48px);
+        }
+
+        .float-links {
+          right: 10px;
+          bottom: 10px;
+        }
+
+        .carousel-shell {
+          grid-template-columns: 1fr;
+          gap: 10px;
+        }
+
+        .carousel-btn {
+          display: none;
+        }
+
+        .carousel-item {
+          flex-basis: 100%;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          transition: none !important;
+          scroll-behavior: auto !important;
+        }
+
+        .reveal {
+          animation: none !important;
+        }
+
+        .logos-track {
+          animation-duration: 14s !important;
+        }
+
+        .mech-gear,
+        .mech-track,
+        .mech-node {
+          opacity: 0.4;
+        }
+
+        .mech-gear {
+          animation-duration: 14s !important;
+        }
+
+        .mech-gear.g1 { animation-delay: 0s !important; }
+        .mech-gear.g2 { animation-delay: 3.5s !important; }
+        .mech-gear.g3 { animation-delay: 7s !important; }
+        .mech-gear.g4 { animation-delay: 10.5s !important; }
+
+        .mech-track {
+          animation-duration: 16s !important;
+        }
+
+        .mech-node {
+          animation-duration: 3.2s !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to main content</a>
+
+    <main class="site" id="top">
+      <div class="top-contact-bar">
+        <div class="top-contact-inner">
+          <a class="top-contact-item" href="tel:+14405446850"><span class="top-icon">☎</span>(440) 544-6850</a>
+          <a class="top-contact-item" href="mailto:solutions@i-c-automation.com"><span class="top-icon">✉</span>solutions@i-c-automation.com</a>
+          <div class="top-socials" aria-label="Social media">
+            <a class="top-social" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M13.5 8.3V6.6c0-.8.5-1.3 1.4-1.3h1.7V2.1h-3c-2.7 0-4.4 1.6-4.4 4.3v1.9H6.8v3.2h2.4V22h3.6V11.5h3.1l.4-3.2h-3.2Z" />
+              </svg>
+            </a>
+            <a class="top-social" href="https://x.com/" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M18.9 2H22l-6.77 7.73L23.2 22h-6.24l-4.89-6.74L6.2 22H3.1l7.24-8.26L1 2h6.4l4.42 6.1L18.9 2Zm-1.1 18h1.73L6.44 3.9H4.6L17.8 20Z" />
+              </svg>
+            </a>
+            <a class="top-social" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M7.75 2h8.5A5.76 5.76 0 0 1 22 7.75v8.5A5.76 5.76 0 0 1 16.25 22h-8.5A5.76 5.76 0 0 1 2 16.25v-8.5A5.76 5.76 0 0 1 7.75 2Zm0 1.9A3.86 3.86 0 0 0 3.9 7.75v8.5a3.86 3.86 0 0 0 3.85 3.85h8.5a3.86 3.86 0 0 0 3.85-3.85v-8.5a3.86 3.86 0 0 0-3.85-3.85h-8.5Zm8.87 1.43a1.16 1.16 0 1 1 0 2.32 1.16 1.16 0 0 1 0-2.32ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.9A3.1 3.1 0 1 0 12 15.1 3.1 3.1 0 0 0 12 8.9Z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <header class="top-nav" id="site-nav">
+        <a class="brand" href="#top" aria-label="IC Automation home">
+          <img class="brand-mark" src="assets/ICLOGO.webp" alt="IC Automation" />
+        </a>
+
+        <button class="nav-toggle" id="navToggle" aria-controls="primary-nav" aria-expanded="false">
+          Menu
+        </button>
+
+        <nav class="nav-links" id="primary-nav" aria-label="Primary navigation">
+          <a href="#products">Products</a>
+          <a href="#solutions">Solutions</a>
+          <a href="#industries">Industries</a>
+          <a href="#customers">Customers</a>
+          <a href="#company">Company</a>
+          <a href="#resources">Resources</a>
+        </nav>
+
+        <div class="nav-right">
+          <form class="site-search" id="siteSearchForm" role="search">
+            <label class="sr-only" for="siteSearchInput">Search site</label>
+            <input class="search-input" id="siteSearchInput" type="search" placeholder="Search" />
+            <button class="search-btn" type="submit">Go</button>
+          </form>
+          <a href="support.html">Support</a>
+          <a class="cta" id="contactSalesBtn" href="support.html">Contact Sales</a>
+        </div>
+      </header>
+
+      <section class="hero reveal" id="products">
+        <div class="hero-mech" aria-hidden="true">
+          <span class="mech-gear g1"></span>
+          <span class="mech-gear g2"></span>
+          <span class="mech-gear g3"></span>
+          <span class="mech-gear g4"></span>
+          <span class="mech-track t1"></span>
+          <span class="mech-track t2"></span>
+          <span class="mech-track t3"></span>
+          <span class="mech-node n1"></span>
+          <span class="mech-node n2"></span>
+          <span class="mech-node n3"></span>
+        </div>
+        <div class="hero-inner">
+          <div class="hero-copy">
+            <h1>Changing your idea of what robots can do.</h1>
+            <p>
+              Discover practical robotic solutions designed to tackle today and tomorrow's toughest automation challenges.
+            </p>
+            <a class="hero-link" href="#solutions">Explore Solutions <span aria-hidden="true">→</span></a>
+          </div>
+          <figure class="hero-media" aria-hidden="true">
+            <img src="assets/herophoto.webp" alt="" />
+          </figure>
+        </div>
+      </section>
+
+      <div class="webinar">
+        <span>WEBINAR: The Form &amp; Function of Enterprise Humanoid Design</span>
+        <a class="tag" href="#contact">Register Now</a>
+      </div>
+
+      <section class="trust reveal delay-1" id="customers">
+        <h2>Trusted globally as one of the top robotics companies</h2>
+        <div class="logos" aria-label="Customer logos">
+          <div class="logos-track">
+            <div class="logos-group">
+              <div class="logo-card">
+                <img src="assets/CEVA.png" alt="CEVA Logistics" loading="lazy" />
+              </div>
+              <div class="logo-card">
+                <span class="wordmark dhl" aria-label="DHL">DHL</span>
+              </div>
+              <div class="logo-card">
+                <img src="assets/FANUC.png" alt="FANUC" loading="lazy" />
+              </div>
+              <div class="logo-card">
+                <img src="assets/GE.jpg" alt="GE" loading="lazy" />
+              </div>
+              <div class="logo-card">
+                <img src="assets/lincoln.svg" alt="Lincoln Electric" loading="lazy" />
+              </div>
+              <div class="logo-card">
+                <img src="assets/OMRON.png" alt="OMRON" loading="lazy" />
+              </div>
+            </div>
+
+            <div class="logos-group" aria-hidden="true">
+              <div class="logo-card">
+                <img src="assets/CEVA.png" alt="" loading="lazy" />
+              </div>
+              <div class="logo-card">
+                <span class="wordmark dhl">DHL</span>
+              </div>
+              <div class="logo-card">
+                <img src="assets/FANUC.png" alt="" loading="lazy" />
+              </div>
+              <div class="logo-card">
+                <img src="assets/GE.jpg" alt="" loading="lazy" />
+              </div>
+              <div class="logo-card">
+                <img src="assets/lincoln.svg" alt="" loading="lazy" />
+              </div>
+              <div class="logo-card">
+                <img src="assets/OMRON.png" alt="" loading="lazy" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="content" id="content">
+        <article class="feature spot reveal delay-1" id="solutions">
+          <div>
+            <h3>Your teammate, your tool.<br />Meet Spot.</h3>
+            <p>
+              Our agile, mobile robot redefines the day-to-day. It works anywhere you work, gathering data, keeping people out of harm's way, and exploring without boundaries.
+            </p>
+            <a href="#contact">Learn About Spot →</a>
+          </div>
+          <figure class="feature-media">
+            <img src="assets/about.jpg" alt="IC Automation team and tools" />
+          </figure>
+        </article>
+
+        <article class="feature stretch reverse reveal delay-2" id="industries">
+          <figure class="feature-media">
+            <img src="assets/Screens.webp" alt="Warehouse automation screens and controls" />
+          </figure>
+          <div>
+            <h3>The Future of Warehouse Automation</h3>
+            <p>
+              Use Stretch to streamline case handling and trailer unloading operations. Fast by design and flexible by design, Stretch keeps your operations moving.
+            </p>
+            <a href="#contact">Learn About Stretch →</a>
+          </div>
+        </article>
+
+        <article class="image-carousel reveal delay-2" aria-label="Automation image gallery">
+          <div class="carousel-shell">
+            <button class="carousel-btn" id="carouselPrev" type="button" aria-label="Previous images">←</button>
+            <div class="carousel-viewport" id="carouselViewport">
+              <div class="carousel-track" id="carouselTrack">
+                <figure class="carousel-item">
+                  <img src="assets/1.jpg" alt="Automation system photo 1" loading="lazy" />
+                </figure>
+                <figure class="carousel-item">
+                  <img src="assets/2.jpg" alt="Automation system photo 2" loading="lazy" />
+                </figure>
+                <figure class="carousel-item">
+                  <img src="assets/3.jpg" alt="Automation system photo 3" loading="lazy" />
+                </figure>
+                <figure class="carousel-item">
+                  <img src="assets/4.jpg" alt="Automation system photo 4" loading="lazy" />
+                </figure>
+                <figure class="carousel-item">
+                  <img src="assets/5.jpg" alt="Automation system photo 5" loading="lazy" />
+                </figure>
+              </div>
+            </div>
+            <button class="carousel-btn" id="carouselNext" type="button" aria-label="Next images">→</button>
+          </div>
+        </article>
+
+        <article class="feature embodied reveal delay-2" id="company">
+          <div>
+            <h3>Embodied Manufacturing Intelligence</h3>
+            <p>
+              Atlas is built for our world and built to transform it. With modern AI and robotics, Atlas brings unmatched mobility, intelligence, and autonomy to the factory floor.
+            </p>
+            <a href="#contact">Learn About Atlas →</a>
+          </div>
+          <figure class="feature-media">
+            <img src="assets/design.jpg" alt="Embodied manufacturing intelligence design" />
+          </figure>
+        </article>
+      </section>
+
+      <section class="cta-band" id="resources">
+        <div class="cta-band-inner">
+          <div>
+            <h2>Ready to automate smarter?</h2>
+            <p>
+              Talk with our robotics specialists to map the right deployment plan for your operation.
+            </p>
+            <form class="contact-form" id="contact" action="#" method="post">
+              <label class="sr-only" for="contactName">Full name</label>
+              <input id="contactName" name="name" type="text" placeholder="Full name" required />
+              <label class="sr-only" for="contactEmail">Work email</label>
+              <input id="contactEmail" name="email" type="email" placeholder="Work email" required />
+              <label class="sr-only" for="contactUseCase">Primary use case</label>
+              <select id="contactUseCase" name="use_case" required>
+                <option value="">Primary use case</option>
+                <option value="inspection">Inspection</option>
+                <option value="warehouse">Warehouse automation</option>
+                <option value="manufacturing">Manufacturing</option>
+              </select>
+              <button type="submit">Request Consultation</button>
+            </form>
+            <p class="status-msg" id="contactStatus" aria-live="polite"></p>
+          </div>
+          <div class="cta-actions">
+            <a class="btn-light" href="#contact">Book a Demo</a>
+            <a class="btn-dark" href="example.pdf" download>Download Brochure</a>
+          </div>
+        </div>
+      </section>
+
+      <footer class="site-footer" id="support">
+        <div class="footer-inner">
+          <div class="footer-grid">
+            <section>
+              <div class="footer-brand">
+                <img class="footer-brand-logo" src="assets/ICLOGO.webp" alt="" aria-hidden="true" />
+                <span>IC Automation</span>
+              </div>
+              <p class="footer-copy">
+                Practical robotics engineered for real-world enterprise operations.
+              </p>
+            </section>
+
+            <section class="footer-col">
+              <h2 class="footer-title">Products</h2>
+              <a href="#solutions">Spot</a>
+              <a href="#industries">Stretch</a>
+              <a href="#company">Atlas</a>
+              <a href="#products">Platform</a>
+            </section>
+
+            <section class="footer-col">
+              <h2 class="footer-title">Company</h2>
+              <a href="#company">About</a>
+              <a href="#customers">Careers</a>
+              <a href="#customers">Case Studies</a>
+              <a href="#contact">Contact</a>
+            </section>
+
+            <section>
+              <h2 class="footer-title">Stay Updated</h2>
+              <form class="signup" action="#" method="post">
+                <label for="email" class="sr-only">Email address</label>
+                <input id="email" name="email" type="email" placeholder="Email address" required />
+                <button type="submit">Subscribe</button>
+              </form>
+              <p class="signup-status" id="signupStatus" aria-live="polite"></p>
+            </section>
+          </div>
+
+          <div class="footer-bottom">
+            <span>© <span id="currentYear">2026</span> IC Automation. All rights reserved.</span>
+            <div class="footer-links">
+              <a href="#support">Privacy</a>
+              <a href="#support">Terms</a>
+              <a href="#support">Accessibility</a>
+              <a href="#top">Sitemap</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <div class="float-links" aria-hidden="true">
+      <a href="#top">↑</a>
+    </div>
+
+    <script>
+      const nav = document.getElementById("site-nav");
+      const navToggle = document.getElementById("navToggle");
+      const navLinks = [...document.querySelectorAll(".nav-links a")];
+      const contactSalesBtn = document.getElementById("contactSalesBtn");
+      const contactForm = document.getElementById("contact");
+      const contactStatus = document.getElementById("contactStatus");
+      const signupForm = document.querySelector(".signup");
+      const signupStatus = document.getElementById("signupStatus");
+      const currentYear = document.getElementById("currentYear");
+      const siteSearchForm = document.getElementById("siteSearchForm");
+      const siteSearchInput = document.getElementById("siteSearchInput");
+      const carouselTrack = document.getElementById("carouselTrack");
+      const carouselViewport = document.getElementById("carouselViewport");
+      const carouselPrev = document.getElementById("carouselPrev");
+      const carouselNext = document.getElementById("carouselNext");
+      let activeSearchHit = null;
+
+      navToggle.addEventListener("click", () => {
+        const open = nav.classList.toggle("is-open");
+        navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+      });
+
+      navLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          nav.classList.remove("is-open");
+          navToggle.setAttribute("aria-expanded", "false");
+        });
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key !== "Escape") return;
+        nav.classList.remove("is-open");
+        navToggle.setAttribute("aria-expanded", "false");
+      });
+
+      if (contactSalesBtn && contactSalesBtn.getAttribute("href") === "#contact") {
+        contactSalesBtn.addEventListener("click", () => {
+          document.getElementById("contact").scrollIntoView({ behavior: "smooth", block: "center" });
+          document.getElementById("contactName").focus();
+        });
+      }
+
+      contactForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const formData = new FormData(contactForm);
+        const name = (formData.get("name") || "").toString().trim();
+        if (!name) {
+          contactStatus.textContent = "Please enter your name to submit.";
+          return;
+        }
+        contactStatus.textContent = `Thanks ${name}. Our sales team will contact you within 1 business day.`;
+        contactForm.reset();
+      });
+
+      signupForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const emailInput = signupForm.querySelector("input[type='email']");
+        if (!emailInput.value.trim()) return;
+        emailInput.value = "";
+        emailInput.placeholder = "Email address";
+        signupStatus.textContent = "You're subscribed. Check your inbox for updates.";
+      });
+
+      if (siteSearchForm && siteSearchInput) {
+        const clearSearchHit = () => {
+          if (!activeSearchHit) return;
+          activeSearchHit.classList.remove("search-hit");
+          activeSearchHit = null;
+        };
+
+        siteSearchForm.addEventListener("submit", (event) => {
+          event.preventDefault();
+          const query = siteSearchInput.value.trim().toLowerCase();
+          siteSearchInput.classList.remove("search-miss");
+          clearSearchHit();
+          if (!query) return;
+
+          const candidates = [
+            ...document.querySelectorAll("main h1, main h2, main h3, main p, main a")
+          ];
+          const match = candidates.find((node) => node.textContent.toLowerCase().includes(query));
+
+          if (!match) {
+            siteSearchInput.classList.add("search-miss");
+            setTimeout(() => siteSearchInput.classList.remove("search-miss"), 900);
+            return;
+          }
+
+          activeSearchHit = match;
+          activeSearchHit.classList.add("search-hit");
+          activeSearchHit.scrollIntoView({ behavior: "smooth", block: "center" });
+        });
+      }
+
+      currentYear.textContent = new Date().getFullYear();
+
+      if (carouselTrack && carouselViewport && carouselPrev && carouselNext) {
+        let carouselIndex = 0;
+        let carouselTimer;
+
+        const getVisibleCount = () => {
+          if (window.matchMedia("(max-width: 620px)").matches) return 1;
+          if (window.matchMedia("(max-width: 980px)").matches) return 2;
+          return 3;
+        };
+
+        const getMaxIndex = () => {
+          const total = carouselTrack.children.length;
+          return Math.max(0, total - getVisibleCount());
+        };
+
+        const renderCarousel = (animate = true) => {
+          const firstItem = carouselTrack.querySelector(".carousel-item");
+          if (!firstItem) return;
+          const gap = parseFloat(getComputedStyle(carouselTrack).gap || "0");
+          const itemWidth = firstItem.getBoundingClientRect().width + gap;
+          carouselTrack.style.transition = animate ? "transform 650ms ease" : "none";
+          carouselTrack.style.transform = `translateX(${-carouselIndex * itemWidth}px)`;
+        };
+
+        const nextSlide = () => {
+          const max = getMaxIndex();
+          carouselIndex = carouselIndex >= max ? 0 : carouselIndex + 1;
+          renderCarousel(true);
+        };
+
+        const prevSlide = () => {
+          const max = getMaxIndex();
+          carouselIndex = carouselIndex <= 0 ? max : carouselIndex - 1;
+          renderCarousel(true);
+        };
+
+        const startCarousel = () => {
+          const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (reduceMotion) return;
+          clearInterval(carouselTimer);
+          carouselTimer = setInterval(nextSlide, 3800);
+        };
+
+        carouselNext.addEventListener("click", () => {
+          nextSlide();
+          startCarousel();
+        });
+
+        carouselPrev.addEventListener("click", () => {
+          prevSlide();
+          startCarousel();
+        });
+
+        carouselViewport.addEventListener("mouseenter", () => clearInterval(carouselTimer));
+        carouselViewport.addEventListener("mouseleave", startCarousel);
+
+        window.addEventListener("resize", () => {
+          carouselIndex = Math.min(carouselIndex, getMaxIndex());
+          renderCarousel(false);
+        });
+
+        renderCarousel(false);
+        startCarousel();
+      }
+
+      const sectionIds = ["products", "solutions", "industries", "customers", "company", "resources"];
+      const sections = sectionIds
+        .map((id) => document.getElementById(id))
+        .filter(Boolean);
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            navLinks.forEach((link) => {
+              const isActive = link.getAttribute("href") === `#${entry.target.id}`;
+              if (isActive) link.setAttribute("aria-current", "page");
+              else link.removeAttribute("aria-current");
+            });
+          });
+        },
+        { rootMargin: "-30% 0px -55% 0px", threshold: 0.2 }
+      );
+
+      sections.forEach((section) => observer.observe(section));
+    </script>
+  </body>
+</html>

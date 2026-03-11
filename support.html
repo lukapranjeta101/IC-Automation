@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Contact IC Automation support and sales." />
+    <title>IC Automation | Support & Contact Sales</title>
+    <style>
+      :root {
+        --bg: #f4f2e9;
+        --surface: #ffffff;
+        --text: #171717;
+        --muted: #645f52;
+        --line: #e5ddc6;
+        --gold: #f5c112;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Avenir Next", "Segoe UI", sans-serif;
+        background: linear-gradient(160deg, #f4f2e9 0%, #faf8f1 55%, #ffffff 100%);
+        color: var(--text);
+      }
+
+      .shell {
+        width: min(900px, 92vw);
+        margin: clamp(24px, 5vw, 56px) auto;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: clamp(18px, 4vw, 34px);
+        box-shadow: 0 18px 38px rgba(35, 30, 14, 0.08);
+      }
+
+      .top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        margin-bottom: 16px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--text);
+        text-decoration: none;
+        font-weight: 800;
+      }
+
+      .brand img {
+        width: 42px;
+        height: 42px;
+        object-fit: cover;
+      }
+
+      .back {
+        text-decoration: none;
+        color: #5f4c18;
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      h1 {
+        margin: 12px 0 8px;
+        font-size: clamp(30px, 4.5vw, 52px);
+        line-height: 1;
+        letter-spacing: -0.02em;
+      }
+
+      p {
+        margin: 0 0 24px;
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      .form {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .form-group {
+        display: grid;
+        gap: 6px;
+      }
+
+      .form-group.full {
+        grid-column: 1 / -1;
+      }
+
+      label {
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        min-height: 44px;
+        border-radius: 10px;
+        border: 1px solid #d7c99f;
+        background: #fffdf5;
+        color: #171717;
+        font-size: 14px;
+        padding: 10px 12px;
+      }
+
+      textarea {
+        min-height: 140px;
+        resize: vertical;
+      }
+
+      .submit {
+        grid-column: 1 / -1;
+        width: fit-content;
+        border: 0;
+        border-radius: 999px;
+        background: linear-gradient(135deg, #f5c112, #e2ab00);
+        color: #1a1a1a;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        padding: 12px 18px;
+        cursor: pointer;
+      }
+
+      .status {
+        grid-column: 1 / -1;
+        min-height: 20px;
+        margin: 4px 0 0;
+        color: #6c561a;
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      @media (max-width: 680px) {
+        .form {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <div class="top">
+        <a class="brand" href="main.html" aria-label="Back to IC Automation home">
+          <img src="assets/ICLOGO.webp" alt="" aria-hidden="true" />
+          <span>IC Automation</span>
+        </a>
+        <a class="back" href="main.html">← Back to Home</a>
+      </div>
+
+      <h1>Support & Contact Sales</h1>
+      <p>Send your request and our team will follow up within 1 business day.</p>
+
+      <form class="form" id="supportForm" action="#" method="post">
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input id="firstName" name="first_name" type="text" autocomplete="given-name" required />
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input id="lastName" name="last_name" type="text" autocomplete="family-name" required />
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input id="phone" name="phone" type="tel" autocomplete="tel" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" required />
+        </div>
+        <div class="form-group full">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" required></textarea>
+        </div>
+        <button class="submit" type="submit">Send Message</button>
+        <p class="status" id="formStatus" aria-live="polite"></p>
+      </form>
+    </main>
+
+    <script>
+      const supportForm = document.getElementById("supportForm");
+      const formStatus = document.getElementById("formStatus");
+
+      supportForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const data = new FormData(supportForm);
+        const firstName = (data.get("first_name") || "").toString().trim();
+        formStatus.textContent = `Thanks ${firstName || "there"}. Your message has been sent to IC Automation support.`;
+        supportForm.reset();
+      });
+    </script>
+  </body>
+</html>
